@@ -8,4 +8,5 @@ The dataset of choice is [Model Agency Data](https://shapy.is.tue.mpg.de/dataset
 
 ## References
 * Choutas, V., Muller, L., Huang, C.H., Tang, S., Tzionas, D., & Black, M. (2022). Accurate 3D Body Shape Regression using Metric and Semantic Attributes. In Proceedings IEEE Conf. on Computer Vision and Pattern Recognition (CVPR).
+* https://uvadlc-notebooks.readthedocs.io/en/latest/tutorial_notebooks/tutorial15/Vision_Transformer.html
 

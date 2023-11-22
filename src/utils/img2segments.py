@@ -1,7 +1,15 @@
 """ 
-    Defines Utility functions
+    Defined img_to_strips, img_to_patches functions
 """
 import torch
+
+
+def img_to_segments(kwargs, segment_type="strips"):
+    if segment_type == "strips":
+        return img_to_strips(**kwargs)
+    elif segment_type == "patches":
+        pass
+        # return img_to_patches(**kwargs)
 
 
 def img_to_strips(
@@ -37,11 +45,12 @@ def img_to_strips(
     if batch_first:
         img_h = img_h.permute(0, 2, 1, 3, 4)  # [b, t, c, s, w]
         img_w = img_w.permute(0, 3, 1, 4, 2)  # [b, t, c, s, h]
+        img1 = torch.cat((img_h, img_w), dim=1)
     else:
         img_h = img_h.permute(2, 0, 1, 3, 4)  # [t, b, c, s, w]
         img_w = img_w.permute(3, 0, 1, 4, 2)  # [t, b, c, s, h]
+        img1 = torch.cat((img_h, img_w), dim=0)
 
-    img1 = torch.cat((img_h, img_w), dim=1)
     if flatten_channels:
-        img1 = img1.flatten(2, 4)
+        img1 = img1.flatten(2, 4)  # [2*t, b, c*s*h]
     return img1
