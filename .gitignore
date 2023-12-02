@@ -13,8 +13,6 @@ hparams.yaml
 lightning_logs/
 condor/
 debug/
-*.png
-*.jpg
 *.obj
 .vscode
 wandb_logs/
