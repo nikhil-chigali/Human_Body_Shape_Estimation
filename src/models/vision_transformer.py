@@ -3,7 +3,7 @@ import torch.nn as nn
 
 from utils.img2segments import img_to_segments
 from models import AttentionBlock
-from utils.consts import device
+from utils.initialize import device
 
 
 class VisionTransformer(nn.Module):
@@ -69,10 +69,11 @@ class VisionTransformer(nn.Module):
         # Concatenate Gender Tokens: Male(0,1), Female(1,0), Neutral(1,1)
         embeds = torch.cat((self.gender_tokens, embeds), dim=0)  # [2+T, B, embed_size]
         # Adding positional encoding
+        # [TODO] Use sin-cos pos enc
         embeds += self.pos_enc  # [2+T, B, embed_size]
 
         x = self.dropout(embeds)
-        x = self.attn_blocks(x)  # [2+T, B, embed_size]
+        x = self.attn_blocks(x)  # [2+T, B, embed_size] [1,B,E]
         x = x.transpose(0, 1).flatten(1, 2)  # [B, (2+T)*embed_size]
         result = self.mlp_head(x)  # [B, output_size]
         return result

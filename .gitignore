@@ -17,6 +17,9 @@ debug/
 *.jpg
 *.obj
 .vscode
+wandb_logs/
+
+dataset/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -129,6 +132,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+
+model_ckpts
 
 # Spyder project settings
 .spyderproject

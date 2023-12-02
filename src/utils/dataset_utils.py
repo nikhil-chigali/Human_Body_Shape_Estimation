@@ -7,9 +7,24 @@ from torch.utils.data import Dataset, DataLoader
 import torchvision.transforms as transforms
 
 from .hbw_dataset import HBWDataset
-
 import os
 import yaml
+from .configs import get_data_configs
+
+
+def build_transforms(
+    is_train: bool = True,
+):
+    data_config = get_data_configs()
+    transform = transforms.Compose(
+        [
+            transforms.Resize(data_config.img_size),
+            transforms.CenterCrop(data_config.img_size),
+            transforms.ToTensor(),
+            transforms.Normalize(data_config.mean, data_config.std),
+        ]
+    )
+    return transform
 
 
 def create_hbw_csv(
@@ -114,12 +129,18 @@ def get_dataloader(
         train_sampler = data.sampler.SubsetRandomSampler(train_indices)
         val_sampler = data.sampler.SubsetRandomSampler(val_indices)
 
-        train_loader = DataLoader(dataset, batch_size=batch_size, sampler=train_sampler)
-        val_loader = DataLoader(dataset, batch_size=batch_size, sampler=val_sampler)
+        train_loader = DataLoader(
+            dataset, batch_size=batch_size, sampler=train_sampler, drop_last=True
+        )
+        val_loader = DataLoader(
+            dataset, batch_size=batch_size, sampler=val_sampler, drop_last=True
+        )
 
         return train_loader, val_loader
     elif type == "test":
-        test_loader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
+        test_loader = DataLoader(
+            dataset, batch_size=batch_size, shuffle=False, drop_last=True
+        )
         return test_loader
     else:
         raise ValueError("Invalid `type` argument. Must be either `train` or `test`.")
