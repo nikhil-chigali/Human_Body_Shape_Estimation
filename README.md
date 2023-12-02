@@ -1,6 +1,7 @@
 # Human Body Shape Estimation
 Estimating Body Shape using 2D images. In our first iteration, we are building on the work of Choutas et al., using their SHAPY model to predict Anthropometric measurements of fashion models from images. 
 
+You can clone the code from the [github](https://github.com/nikhil-chigali/Human_Body_Shape_Estimation.git) repo
 ## Dataset
 The dataset of choice is [Human Bodies in the wild](https://shapy.is.tue.mpg.de/datasets.html). This is a dataset collected by Choutas et al., for their paper - '[Accurate 3D Body Shape Regression using Metric and Semantic Attributes](https://shapy.is.tue.mpg.de/index.html)' 
 
